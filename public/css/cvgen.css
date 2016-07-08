@@ -1,0 +1,21 @@
+table.jobs{
+	width: 100% ;
+	border-top : 1px solid black ;
+}
+.company{
+	font-weight: bold ;
+	
+}
+.skillset{
+	font-style: italic;
+}
+
+.summary{
+	font-weight: bold ;
+	font-size: 0.9em ;
+}
+
+.description{
+	text-align: justify ;
+	font-size: 0.9em ;
+}
