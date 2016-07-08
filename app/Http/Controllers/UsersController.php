@@ -6,17 +6,30 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\User;
-
+use Auth ;
+use Gate ;
 use Session ;
+
 class UsersController extends Controller
 {
 
+	/**
+	*	index
+	*
+	*	A list of all users should only be accessible by the ADMINISTRATOR 
+	*/
 	public function index(){
 	 
 	 	$users = User::orderBy('created_at', 'asc')->get();
 	 
 	 	return view('users.index', ['users' => $users]);    
 	}
+	
+	/**
+	*	create
+	*	
+	* this not needed as is done by the Auth
+	*/
 	
 	public function create(){
 		return view('users.create' ) ;
@@ -51,15 +64,29 @@ class UsersController extends Controller
 	}
 	
 	public function show( $id ){
-		 // get the nerd
-        $user = User::find($id);
-        // show the view and pass the nerd to it
+		
+		if (Gate::denies('show', $id )) {
+      	Session::flash('message', 'Wrong user id contact Administrator!');
+            
+      	return redirect('home') ;
+      }
+
+        $user = User::find(Auth::user()->id);
+
         return view('users.show', ['user'=>$user] );
 	}
 	
 	public function edit( $id ){
 
-        $user = User::find($id);
+		if (Gate::denies('edit', $id )) {
+			
+      	Session::flash('message', 'Wrong user id contact Administrator!');
+            
+      	return redirect('home') ;
+      }
+ 
+ 			// test user id = auth id
+        $user = User::find(Auth::user()->id);
 
         // show the view and pass the nerd to it
         return view('users.edit', ['user'=>$user] );
@@ -68,6 +95,13 @@ class UsersController extends Controller
 	
 	public function update( Request $request, $id ){
 
+		if (Gate::denies('update', $id )) {
+
+      	Session::flash('message', 'Wrong user id contact Administrator!');
+            
+      	return redirect('home') ;
+      }
+      
 		$user = User::find($id);
 		$this->validate($request, [
 		     'firstname' => 'required|max:255',

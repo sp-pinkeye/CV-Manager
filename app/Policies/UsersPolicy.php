@@ -17,17 +17,42 @@ class UsersPolicy
     {
         //
     }
-  /**
+    
+    
+  	/**
+     * Determine if the given user can show the given user profile.
+     *
+     * @param  User  $user
+     * @param  Int  $id
+     * @return bool
+     */
+    public function show(User $user, $id )
+    {
+        return $user->id === $id;
+    }
+
+  	/**
+     * Determine if the given user can edit the given user profile.
+     *
+     * @param  User  $user
+     * @param  Int  $id
+     * @return bool
+     */
+    public function edit(User $user, $id )
+    {
+        return $user->id === $id;
+    }
+    
+  	/**
      * Determine if the given user can update the given user profile.
      *
      * @param  User  $user
      * @param  Int  $id
      * @return bool
      */
-    public function update(Users $user, $id )
+    public function update(User $user, $id )
     {
-    	dd( $id ) ;
         return $user->id === $id;
     }
-}
+
 }

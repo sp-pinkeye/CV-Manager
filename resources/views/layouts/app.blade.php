@@ -106,9 +106,6 @@
         </div>
     </nav>
 
-      <!-- Display Validation Errors -->
-      @include('common.errors')
-
     @yield('content')
 
     <!-- JavaScripts -->

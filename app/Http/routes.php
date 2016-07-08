@@ -20,7 +20,13 @@ Route::auth();
 Route::get('/home', 'HomeController@index');
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::resource( 'users', 'UsersController', ['middleware' => 'auth'] ) ;
+
+	Route::resource( 'users', 'UsersController' ) ;
+
+//	Route::put( 'users/update', 'UsersController@update' ) ;
+//	Route::get( 'users', 'UsersController@show' ) ;
+//	Route::get( 'users/edit', 'UsersController@edit' ) ;
+	
 	Route::resource( 'cvs', 'CvsController' ) ;
 	Route::resource( 'skill_list', 'SkillListController' ) ;
 	Route::resource( 'jobs', 'JobsController' ) ;
