@@ -40,7 +40,7 @@ class UserPolicy
      * @return bool
      */
     public function edit(User $user, $id )
-    {  	
+    {  	   
     	  return $user->id == $id;
     }
     

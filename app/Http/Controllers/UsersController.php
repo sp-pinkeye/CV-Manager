@@ -9,6 +9,7 @@ use App\User;
 use Auth ;
 use Gate ;
 use Session ;
+use Policy ;
 
 class UsersController extends Controller
 {
@@ -65,29 +66,27 @@ class UsersController extends Controller
 	
 	public function show( $id ){
 		
-		if (Gate::denies('show', $id )) {
-      	Session::flash('message', 'Wrong user id contact Administrator!');
-            
-      	return redirect('home') ;
-      }
-
-        $user = User::find(Auth::user()->id);
-
+		  $user = User::find($id);
+      $policy = policy($user)->edit(Auth::user(), $id) ;
+      
+      if( !$policy  ){
+	      Session::flash('message', 'Wrong user id contact Administrator!');
+	   	return redirect('/home') ;
+	   }
         return view('users.show', ['user'=>$user] );
 	}
 	
 	public function edit( $id ){
-
-		if (Gate::denies('edit', $id )) {
-			
-      	Session::flash('message', 'Wrong user id contact Administrator!');
-            
-      	return redirect('home') ;
-      }
- 
- 			// test user id = auth id
-        $user = User::find(Auth::user()->id);
-
+        
+		// test user id = auth id
+      $user = User::find($id);
+      $policy = policy($user)->edit(Auth::user(), $id) ;
+      
+      if( !$policy  ){
+	      Session::flash('message', 'Wrong user id contact Administrator!');
+	   	return redirect('/home') ;
+	   }
+	
         // show the view and pass the nerd to it
         return view('users.edit', ['user'=>$user] );
 		

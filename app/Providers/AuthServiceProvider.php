@@ -1,8 +1,8 @@
 <?php
 namespace App\Providers;
 
-use App\user;
-use App\Policies\UsersPolicy;
+use App\User;
+use App\Policies\UserPolicy;
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -15,8 +15,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
-        	User::class => UsersPolicy::class
+     //   'App\Model' => 'App\Policies\ModelPolicy',
+        	User::class => UserPolicy::class
     ];
 
     /**
@@ -29,6 +29,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies($gate);
 
+        //$gate->define('edit-users', function ( $user, $id ) {
+         //   return $user->id === $id;
+       // });
         $gate->define('update-jobs', function ( $user, $job ) {
             return $user->id === $job->user_id;
         });
