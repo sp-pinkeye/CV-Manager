@@ -58,7 +58,7 @@
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                <li><a href="{{ url('/skill_list') }}">Show All</a></li>
-                                <li><a href="{{ url('/skill_list/create') }}">Create Skill</li>
+                            	 <li><a href="{{ url('/skill_list/create') }}">Create Skill</a></li>                          
                             </ul>
                       </li>
                      <li class="dropdown">
@@ -67,7 +67,7 @@
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                <li><a href="{{ url('/jobs') }}">Show All</a></li>
-                                <li><a href="{{ url('/jobs/create') }}">Create Job</li>
+                                <li><a href="{{ url('/jobs/create') }}">Create Job</a></li>
                             </ul>
                       </li>
 
@@ -77,7 +77,7 @@
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                <li><a href="{{ url('/cvs') }}">List</a></li>
-                                <li><a href="{{ url('/cvs/create') }}">Create CV</li>
+                                <li><a href="{{ url('/cvs/create') }}">Create CV</a></li>
                             </ul>
                       </li>
 							@endif

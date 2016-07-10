@@ -14,11 +14,13 @@ use Policy ;
 class UsersController extends Controller
 {
 
-	/**
-	*	index
-	*
-	*	A list of all users should only be accessible by the ADMINISTRATOR 
-	*/
+ 	/**
+     * List of all users.
+     *	NOTE : Only ADMIN user should acces this
+     *
+     * 
+     * @return View of all users
+     */	
 	public function index(){
 	 
 	 	$users = User::orderBy('created_at', 'asc')->get();
@@ -27,15 +29,23 @@ class UsersController extends Controller
 	}
 	
 	/**
-	*	create
-	*	
-	* this not needed as is done by the Auth
-	*/
+     * Create a user.
+     *	NOTE : Not needed as Auth registers new user
+     *
+     * 
+     * @return View of Create User Form
+     */	
 	
 	public function create(){
 		return view('users.create' ) ;
 	}
-	
+	/**
+     * Store a new user.
+     *	NOTE : Not needed as Auth registers new user
+     *
+     * 
+     * @return View of All users
+     */	
 	public function store( Request $request ){
 		$this->validate($request, [
 		     'firstname' => 'required|max:255',
@@ -63,11 +73,20 @@ class UsersController extends Controller
             
       return redirect('users') ;
 	}
-	
-	public function show( $id ){
+	/**
+     * Show a user.
+     *
+     * @param	$request - used to acces logged in user details 
+     * @param 	$id	-	id of user details to show
+     *
+     *	NOTE : When Admin user defined the Policy will have to be changed.
+     * 
+     * @return View of Show User details
+     */	
+	public function show( Request $request ,$id ){
 		
-		  $user = User::find($id);
-      $policy = policy($user)->edit(Auth::user(), $id) ;
+		$user = User::find($id);
+      $policy = policy($user)->show($request->user(), $id) ;
       
       if( !$policy  ){
 	      Session::flash('message', 'Wrong user id contact Administrator!');
@@ -76,11 +95,22 @@ class UsersController extends Controller
         return view('users.show', ['user'=>$user] );
 	}
 	
-	public function edit( $id ){
+
+	/**
+     * Edit a user.
+     *
+     * @param	$request - used to access logged in user details 
+     * @param 	$id	-	id of user details to edit
+     *
+     *	NOTE : When Admin user defined the Policy will have to be changed.
+     * 
+     * @return View of Edit User Form
+     */	
+	public function edit( Request $request ,$id ){
         
 		// test user id = auth id
       $user = User::find($id);
-      $policy = policy($user)->edit(Auth::user(), $id) ;
+      $policy = policy($user)->edit($request->user(), $id) ;
       
       if( !$policy  ){
 	      Session::flash('message', 'Wrong user id contact Administrator!');
@@ -91,17 +121,28 @@ class UsersController extends Controller
         return view('users.edit', ['user'=>$user] );
 		
 	}
-	
+		/**
+     * Update a user.
+     *
+     * @param	$request - used to access logged in user details 
+     * @param 	$id	-	id of user details to save
+     *
+     *	NOTE : When Admin user defined the Policy will have to be changed.
+     * 
+     * @return View of Home Page
+     */	
+
 	public function update( Request $request, $id ){
 
-		if (Gate::denies('update', $id )) {
-
-      	Session::flash('message', 'Wrong user id contact Administrator!');
-            
-      	return redirect('home') ;
-      }
-      
+		
 		$user = User::find($id);
+  	   $policy = policy($user)->update($request->user(), $id) ;
+      
+      if( !$policy  ){
+	      Session::flash('message', 'Wrong user id contact Administrator!');
+	   	return redirect('/home') ;
+	   }
+	
 		$this->validate($request, [
 		     'firstname' => 'required|max:255',
 		     'lastname' => 'required|max:255',

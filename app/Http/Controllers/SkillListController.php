@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\SkillList;
 
+use Auth ;
 use Session;
 
 class SkillListController extends Controller
@@ -21,9 +22,11 @@ class SkillListController extends Controller
 	}
 	
 	public function store( Request $request ){
+		
 		$this->validate($request, [
 		     'name' => 'required|max:255'
 		]);
+
 		$skill_list = new SkillList;
 		$skill_list->name = $request->name;
 		$skill_list->version = $request->version;
@@ -36,29 +39,47 @@ class SkillListController extends Controller
       return redirect('skill_list') ;
 	}
 	
-	public function show( $id ){
-		 // get the nerd
-        $skill_list = SkillList::find($id);
+	public function show( Request $request ,$id ){
 
+      $skill_list = SkillList::find($id);
+        
+	   $policy = policy($skill_list)->show($request->user(), $skill_list) ;
+      
+      if( !$policy  ){
+	      Session::flash('message', 'Wrong user id contact Administrator!');
+	   	return redirect('/home') ;
+	   }
         // show the view and pass the nerd to it
         return view('skill_list.show', ['skill_list'=>$skill_list] );
 	}
 	
-	public function edit( $id ){
+	public function edit( Request $request ,$id ){
 
-        $skill_list = SkillList::find($id);
+      $skill_list = SkillList::find($id);
+	   $policy = policy($skill_list)->edit($request->user(), $skill_list) ;
+      
+      if( !$policy  ){
+	      Session::flash('message', 'Wrong user id contact Administrator!');
+	   	return redirect('/home') ;
+	   }
 
         // show the view and pass the nerd to it
         return view('skill_list.edit', ['skill_list'=>$skill_list] );
 		
 	}
 	
-	public function update( $id ){
+	public function update( Request $request ,$id ){
 		$this->validate($request, [
 		     'name' => 'required|max:255'
 		]);
 		
 		$skill_list = SkillList::find($id);
+	   $policy = policy($skill_list)->update($request->user(), $skill_list) ;
+      
+      if( !$policy  ){
+	      Session::flash('message', 'Wrong user id contact Administrator!');
+	   	return redirect('/home') ;
+	   }
 
 		$skill_list->name = $request->name;
 		$skill_list->version = $request->version;

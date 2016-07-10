@@ -17,6 +17,7 @@ use Session;
 
 class JobsController extends Controller
 {
+	 
 	public function index(){
 	 
 	 	$jobs = Jobs::orderBy('order', 'asc')->get();
@@ -34,9 +35,9 @@ class JobsController extends Controller
 		
 		$cvs = Cvs::where( 'user_id',1 )->pluck('title', 'id') ;
 		
-		$skills = SkillList::pluck('name', 'id');
+		$skillList = SkillList::where('user_id', $request->user()->id)->pluck('name', 'id');
 		
-		return view('jobs.create' , ['skills'=>$skills ]) ;
+		return view('jobs.create' , ['skills'=>$skillList ]) ;
 	}
 	
 	public function store( Request $request ){
@@ -75,19 +76,30 @@ class JobsController extends Controller
       return redirect('jobs') ;
 	}
 	
-	public function show( $id ){
+	public function show( Request $request ,$id ){
 		
 		$job = Jobs::find($id);
-		
+	   $policy = policy($job)->show($request->user(), $job) ;
+      
+      if( !$policy  ){
+	      Session::flash('message', 'Wrong user id contact Administrator!');
+	   	return redirect('/home') ;
+	   }
 		$printSkill = Helpers::formatSkillSet( $job ) ;
 			
       return view('jobs.show', ['job'=>$job, 'skillSet'=> $printSkill ] );
 	}
 	
-	public function edit( $id ){
+	public function edit( Request $request ,$id ){
 
       $job = Jobs::find($id);
-		$skillList = SkillList::pluck('name', 'id');
+	   $policy = policy($job)->edit($request->user(), $job) ;
+      
+      if( !$policy  ){
+	      Session::flash('message', 'Wrong user id contact Administrator!');
+	   	return redirect('/home') ;
+	   }
+		$skillList = SkillList::where('user_id', $request->user()->id)->pluck('name', 'id');
 		$selected = array();
 		foreach( $job->skills as $jobSkill ){
 			$selected[] = $jobSkill->skill_id;	
@@ -108,6 +120,12 @@ class JobsController extends Controller
 		]);
 		
 		$job = Jobs::find($id);
+	   $policy = policy($job)->update($request->user(), $job) ;
+      
+      if( !$policy  ){
+	      Session::flash('message', 'Wrong user id contact Administrator!');
+	   	return redirect('/home') ;
+	   }
 
 		$job->company = $request->company;
 		$job->order = $request->order;
