@@ -22,40 +22,41 @@ class JobsPolicy
     {
         //
     }
+
     	/**
      * Determine if the given user can show the Job.
      *
      * @param  User  $user
-     * @param  Int  $id
+     * @param  Job  $job
      * @return bool
      */
-    public function show(User $user, $Job )
+    public function show(User $user, $job )
     {
-        return $user->id == $Job->users_id;
+        return $user->id == $job->users_id;
     }
 
   	/**
      * Determine if the given user can edit the Job.
      *
      * @param  User  $user
-     * @param  Int  $id
+     * @param  Job  $job
      * @return bool
      */
-    public function edit(User $user, $Job )
+    public function edit(User $user, $job )
     {  	   
-    	  return $user->id == $Job->users_id;
+    	  return $user->id == $job->users_id;
     }
     
   	/**
      * Determine if the given user can update the Job.
      *
      * @param  User  $user
-     * @param  Int  $id
+     * @param  Job  $job
      * @return bool
      */
-    public function update(User $user, $Job )
+    public function update(User $user, $job )
     {
-        return $user->id == $Job->users_id;
+        return $user->id == $job->users_id;
     }
     
 }

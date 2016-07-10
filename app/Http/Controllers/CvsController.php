@@ -27,11 +27,11 @@ class CvsController extends Controller
 	 	return view('cvs.index', ['cvs' => $cvs]);    
 	}
 	
-	public function create(){
+	public function create( Request $request ){
 
 		// Get all the CVs for this user
 								
-		$jobs = Jobs::where( 'users_id', Auth::user()->id)->pluck( 'company', 'id') ;
+		$jobs = Jobs::where( 'users_id', $request->user()->id)->pluck( 'company', 'id') ;
 		
 		return view('cvs.create', ['jobs'=>$jobs ] ) ;
 	}
@@ -49,16 +49,24 @@ class CvsController extends Controller
 		$cv->user_id = $request->user_id;
 		$cv->save();
 
+		// Now selected jobs
+		dd( $request->jobs  ) ; 
 		
       Session::flash('message', 'Successfully created CV!');
             
       return redirect('cvs') ;
 	}
 	
-	public function show( $id ){
+	public function show( Request $request, $id ){
 		
 		$cv = Cvs::find($id);
 
+ 		$policy = policy($cv)->show($request->user(), $cv) ;
+      
+      if( !$policy  ){
+	      Session::flash('message', 'Wrong user id contact Administrator!');
+	   	return redirect('/home') ;
+	   }
 		// How can I get helper inside the views or the Model methinks
 		foreach( $cv->jobs as $job ){
 			$job->skillSet = Helpers::formatSkillSet( $job ) ;
@@ -67,10 +75,16 @@ class CvsController extends Controller
 		return view('cvs.show', ['cv'=>$cv ] );
 	}
 	
-	public function edit( $id ){
+	public function edit(  Request $request, $id ){
 
       $cv = Cvs::find($id);
 		
+		$policy = policy($cv)->show($request->user(), $cv) ;
+      
+      if( !$policy  ){
+	      Session::flash('message', 'Wrong user id contact Administrator!');
+	   	return redirect('/home') ;
+	   }
 		return view('cvs.edit', ['cv'=>$cv] );
 		
 	}
@@ -83,10 +97,19 @@ class CvsController extends Controller
 		]);
 		
 		$cv = Cvs::find($id);
-
+	
+		$policy = policy($cv)->show($request->user(), $cv) ;
+      
+      if( !$policy  ){
+	      Session::flash('message', 'Wrong user id contact Administrator!');
+	   	return redirect('/home') ;
+	   }
 		$cv->title = $request->title;
+		
 		$cv->save();
 
+		// Now selected jobs
+		var_dump( $cv->jobs  ) ; 
 		
       Session::flash('message', 'Successfully Updated CV!');
             

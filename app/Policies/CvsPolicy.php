@@ -27,35 +27,35 @@ class CvsPolicy
      * Determine if the given user can show the Cv.
      *
      * @param  User  $user
-     * @param  Int  $id
+     * @param  Cvs  $cv
      * @return bool
      */
-    public function show(User $user, $Cv )
+    public function show(User $user, $cv )
     {
-        return $user->id == $Cv->user_id;
+        return $user->id == $cv->user_id;
     }
 
   	/**
      * Determine if the given user can edit the Cv.
      *
      * @param  User  $user
-     * @param  Int  $id
+     * @param  Cvs  $cv
      * @return bool
      */
-    public function edit(User $user, $Cv )
+    public function edit(User $user, $cv )
     {  	   
-    	  return $user->id == $Cv->user_id;
+    	  return $user->id == $cv->user_id;
     }
     
   	/**
      * Determine if the given user can update the Cv.
      *
      * @param  User  $user
-     * @param  Int  $id
+     * @param  Cvs  $cv
      * @return bool
      */
-    public function update(User $user, $Cv )
+    public function update(User $user, $cv )
     {
-        return $user->id == $Cv->user_id;
+        return $user->id == $cv->user_id;
     }
 }

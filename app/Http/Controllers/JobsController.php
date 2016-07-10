@@ -29,10 +29,8 @@ class JobsController extends Controller
 	 	return view('jobs.index', ['jobs' => $jobs]);    
 	}
 	
-	public function create(){
+	public function create(Request $request){
 
-		// Get all the CVs for this user
-		
 		$cvs = Cvs::where( 'user_id',1 )->pluck('title', 'id') ;
 		
 		$skillList = SkillList::where('user_id', $request->user()->id)->pluck('name', 'id');
