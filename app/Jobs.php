@@ -14,7 +14,7 @@ class Jobs extends Model
     
     //protected $dates = ['created_at', 'updated_at', 'start', 'end'];
     public function cvs(){
-		return $this->belongsTo( 'App\Cvs') ;
+		return $this->belongsToMany( 'App\Cvs') ;
     }
     	
     public function skills()

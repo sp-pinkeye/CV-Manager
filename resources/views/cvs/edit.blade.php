@@ -8,7 +8,7 @@
 
     <div class="panel-body">
 
-		<h1>Create a CV</h1>
+		<h1>Edit CV</h1>
       <!-- Display Validation Errors -->
       @include('common.errors')
 
@@ -18,10 +18,13 @@
         {!! Form::text('title', null, array('class' => 'form-control')) !!}
     </div>
 
-    <div class="form-group">
-        {!! Form::label('user_id', 'User') !!}
-        {!! Form::text('user_id', null, array('class' => 'form-control')) !!}
+      <div class="form-group">
+        {!! Form::label('jobs', 'Jobs') !!}
+			{!! Form::select('jobs[]', $jobs, $selected, ['id' => 'jobs', 'multiple' => 'multiple']) !!}
     </div>
+
+    {!! Form::hidden('user_id',  Auth::user()->id , array('class' => 'form-control')) !!}
+
 
     {!! Form::submit('Update the CV!', array('class' => 'btn btn-primary')) !!}
 

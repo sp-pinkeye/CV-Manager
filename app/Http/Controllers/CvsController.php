@@ -32,7 +32,6 @@ class CvsController extends Controller
 		// Get all the CVs for this user
 								
 		$jobs = Jobs::where( 'users_id', $request->user()->id)->pluck( 'company', 'id') ;
-		
 		return view('cvs.create', ['jobs'=>$jobs ] ) ;
 	}
 	
@@ -48,10 +47,8 @@ class CvsController extends Controller
 		$cv->title = $request->title;
 		$cv->user_id = $request->user_id;
 		$cv->save();
-
 		// Now selected jobs
-		dd( $request->jobs  ) ; 
-		
+		$cv->jobs()->attach($request->jobs)	;
       Session::flash('message', 'Successfully created CV!');
             
       return redirect('cvs') ;
@@ -85,7 +82,14 @@ class CvsController extends Controller
 	      Session::flash('message', 'Wrong user id contact Administrator!');
 	   	return redirect('/home') ;
 	   }
-		return view('cvs.edit', ['cv'=>$cv] );
+		$jobs = Jobs::where( 'users_id', $request->user()->id)->pluck( 'company', 'id') ;
+		$selected = [] ;
+	   foreach( $cv->jobs as $job ){
+	  	 	$selected[] = $job->id ;
+   	}
+	   	
+		
+		return view('cvs.edit', ['cv'=>$cv, 'jobs'=>$jobs, 'selected'=>$selected] );
 		
 	}
 	
@@ -109,8 +113,7 @@ class CvsController extends Controller
 		$cv->save();
 
 		// Now selected jobs
-		var_dump( $cv->jobs  ) ; 
-		
+		$cv->jobs()->attach($request->jobs)	;		
       Session::flash('message', 'Successfully Updated CV!');
             
       return redirect('cvs') ;

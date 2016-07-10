@@ -21,7 +21,7 @@
 
     <div class="form-group">
         {!! Form::label('jobs', 'Jobs') !!}
-{!! Form::select('jobs[]', $jobs, null, ['id' => 'jobs', 'multiple' => 'multiple']) !!}
+			{!! Form::select('jobs[]', $jobs, null, ['id' => 'jobs', 'multiple' => 'multiple']) !!}
     </div>
 
     {!! Form::hidden('user_id',  Auth::user()->id , array('class' => 'form-control')) !!}

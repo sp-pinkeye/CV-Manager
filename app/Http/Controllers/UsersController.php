@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\User;
+use App\Address;
+
 use Auth ;
 use Gate ;
 use Session ;
@@ -85,7 +87,7 @@ class UsersController extends Controller
      */	
 	public function show( Request $request ,$id ){
 		
-		$user = User::find($id);
+		$user = User::with('address')->find($id);
       $policy = policy($user)->show($request->user(), $id) ;
       
       if( !$policy  ){
@@ -108,17 +110,15 @@ class UsersController extends Controller
      */	
 	public function edit( Request $request ,$id ){
         
-		// test user id = auth id
-      $user = User::find($id);
+		$user = User::with('address')->find($id);
       $policy = policy($user)->edit($request->user(), $id) ;
       
       if( !$policy  ){
 	      Session::flash('message', 'Wrong user id contact Administrator!');
 	   	return redirect('/home') ;
 	   }
-	
-        // show the view and pass the nerd to it
-        return view('users.edit', ['user'=>$user] );
+	   dd( $user->toArray()) ;
+       return view('users.edit', ['user'=>$user] );
 		
 	}
 		/**
@@ -161,8 +161,22 @@ class UsersController extends Controller
 		if( $request->mobile !== ''){
 			$user->mobile = $request->mobile ;
 		}
-		$user->save();
+	
 		
+		// Now related Address
+		$user->address()->create( [
+		'address1' => $request->address1,
+		'address2' => $request->address2,
+		'address3' => $request->address3 ,
+		'city' => $request->city ,
+		'state' => $request->state ,
+		'postcode' => $request->postcode ,
+		'country' => $request->country 
+		]
+	
+		);
+
+
       Session::flash('message', 'Successfully Updated user!');
             
       return redirect('home') ;

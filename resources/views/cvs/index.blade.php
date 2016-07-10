@@ -22,6 +22,7 @@
         <tr>
             <td>ID</td>
             <td>Title</td>
+            <td>Jobs</td>
         </tr>
     </thead>
     <tbody>
@@ -29,7 +30,10 @@
         <tr>
             <td>{{ $value->id }}</td>
             <td>{{ $value->title }}</td>
-
+				<td>@foreach( $value->jobs as $job )
+					<a href="{{ URL::to('jobs/' . $job->id) }}">{{ $job->company }}</a><br>
+					@endforeach				
+				</td>
             <!-- we will also add show, edit, and delete buttons -->
             <td>
                 <!-- show the nerd (uses the show method found at GET /cvs/{id} -->

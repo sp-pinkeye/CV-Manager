@@ -24,6 +24,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
     
+   public function address(){
+		return $this->hasMany( 'App\Address') ;
+	}
    public function cvs(){
 		return $this->hasMany( 'App\Cvs') ;
 	}

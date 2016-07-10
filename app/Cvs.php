@@ -14,7 +14,7 @@ class Cvs extends Model
 		return $this->belongsTo( 'App\User') ;
 	}
 	public function jobs(){
-		$jobs = $this->hasMany( 'App\Jobs' ) ;
+		$jobs = $this->belongsToMany( 'App\Jobs' ) ;
 		return $jobs;	
 	}    
 }
