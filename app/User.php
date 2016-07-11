@@ -25,7 +25,7 @@ class User extends Authenticatable
     ];
     
    public function address(){
-		return $this->hasMany( 'App\Address') ;
+		return $this->hasOne( 'App\Address') ;
 	}
    public function cvs(){
 		return $this->hasMany( 'App\Cvs') ;
