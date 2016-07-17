@@ -12,7 +12,7 @@
       <!-- Display Validation Errors -->
       @include('common.errors')
 
-	{!! Form::model($user->toArray(), array('route' => array('users.update', $user->id), 'method' => 'PUT')) !!}
+	{!! Form::model($user, array('route' => array('users.update', $user->id), 'method' => 'PUT')) !!}
     <div class="form-group">
         {!! Form::label('firstname', 'First Name') !!}
         {!! Form::text('firstname', null, array('class' => 'form-control')) !!}
@@ -38,36 +38,38 @@
         {!! Form::text('mobile', null, array('class' => 'form-control')) !!}
     </div>
 
+    <!-- How do we populate this automatically -->
+        {!! Form::hidden('address.id', $user->address->id, array('class' => 'form-control')) !!}
 
-    <div class="form-group">
+        <div class="form-group">
         {!! Form::label('address1', 'Address 1') !!}
-        {!! Form::text('address1', null, array('class' => 'form-control')) !!}
+        {!! Form::text('address1', $user->address->address1, array('class' => 'form-control')) !!}
     </div>
     <div class="form-group">
         {!! Form::label('address2', 'Address 2') !!}
-        {!! Form::text('address2', null, array('class' => 'form-control')) !!}
+        {!! Form::text('address2', $user->address->address2, array('class' => 'form-control')) !!}
     </div>
     <div class="form-group">
         {!! Form::label('address3', 'Address 3') !!}
-        {!! Form::text('address3', null, array('class' => 'form-control')) !!}
+        {!! Form::text('address3', $user->address->address3, array('class' => 'form-control')) !!}
     </div>
 
     <div class="form-group">
         {!! Form::label('city', 'City') !!}
-        {!! Form::text('city', null, array('class' => 'form-control')) !!}
+        {!! Form::text('city', $user->address->city, array('class' => 'form-control')) !!}
     </div>
     <div class="form-group">
         {!! Form::label('state', 'State' ) !!}
-        {!! Form::text('state', null, array('class' => 'form-control')) !!}
+        {!! Form::text('state', $user->address->state, array('class' => 'form-control')) !!}
     </div>
     <div class="form-group">
         {!! Form::label('country', 'Country') !!}
-        {!! Form::text('country', null, array('class' => 'form-control')) !!}
+        {!! Form::text('country', $user->address->country, array('class' => 'form-control')) !!}
     </div>
 
     <div class="form-group">
         {!! Form::label('postcode', 'Poctcode') !!}
-        {!! Form::text('postcode', null, array('class' => 'form-control')) !!}
+        {!! Form::text('postcode', $user->address->postcode, array('class' => 'form-control')) !!}
     </div>
 
     {!! Form::submit('Update the User!', array('class' => 'btn btn-primary')) !!}

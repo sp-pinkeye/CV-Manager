@@ -109,19 +109,17 @@ class UsersController extends Controller
      * @return View of Edit User Form
      */	
 	public function edit( Request $request ,$id ){
-        
 		$user = User::with('address')->find($id);
-      $policy = policy($user)->edit($request->user(), $id) ;
+      	$policy = policy($user)->edit($request->user(), $id) ;
       
-      if( !$policy  ){
-	      Session::flash('message', 'Wrong user id contact Administrator!');
-	   	return redirect('/home') ;
-	   }
-	   dd( $user->toArray()) ;
-       return view('users.edit', ['user'=>$user] );
-		
+     	if( !$policy  ){
+			Session::flash('message', 'Wrong user id contact Administrator!');
+	   		return redirect('/home') ;
+	   	}
+       	return view('users.edit', ['user'=>$user] );
 	}
-		/**
+
+	/**
      * Update a user.
      *
      * @param	$request - used to access logged in user details 
@@ -142,7 +140,7 @@ class UsersController extends Controller
 	      Session::flash('message', 'Wrong user id contact Administrator!');
 	   	return redirect('/home') ;
 	   }
-	
+
 		$this->validate($request, [
 		     'firstname' => 'required|max:255',
 		     'lastname' => 'required|max:255',
@@ -162,19 +160,37 @@ class UsersController extends Controller
 			$user->mobile = $request->mobile ;
 		}
 	
-		
+		// If there is an address id do we add here
 		// Now related Address
-		$user->address()->create( [
-		'address1' => $request->address1,
-		'address2' => $request->address2,
-		'address3' => $request->address3 ,
-		'city' => $request->city ,
-		'state' => $request->state ,
-		'postcode' => $request->postcode ,
-		'country' => $request->country 
-		]
-	
-		);
+        if( $request->address_id ){
+
+            Address::where( 'id',$request->address_id )
+            ->update( [
+                    'address1' => $request->address1,
+                'address2' => $request->address2,
+                'address3' => $request->address3 ,
+                'city' => $request->city ,
+                'state' => $request->state ,
+                'postcode' => $request->postcode ,
+                'country' => $request->country
+            ]
+            );
+
+
+        }else{
+            $user->address()->save ( new Address([
+                'address1' => $request->address1,
+                'address2' => $request->address2,
+                'address3' => $request->address3 ,
+                'city' => $request->city ,
+                'state' => $request->state ,
+                'postcode' => $request->postcode ,
+                'country' => $request->country
+            ])
+            );
+
+        }
+
 
 
       Session::flash('message', 'Successfully Updated user!');

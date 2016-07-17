@@ -24,11 +24,39 @@
 				<tr>
 				<th class="text-left">Telephone :</th>
 				<td class="text-left telephone">{!! $cv->user->telephone !!}</td>				
-				</tr>      	
-				<tr>
+				</tr>
+			<tr>
 				<th class="text-left">Mobile :</th>
-				<td class="text-left mobile">{!! $cv->user->mobile !!}</td>				
-				</tr>      	
+				<td class="text-left mobile">{!! $cv->user->mobile !!}</td>
+			</tr>
+			<tr>
+				<th class="text-left">Address :</th>
+				<td class="text-left mobile">{!! $cv->user->address->address1 !!}</td>
+			</tr>
+			<tr>
+				<th class="text-left"></th>
+				<td class="text-left mobile">{!! $cv->user->address->address2 !!}</td>
+			</tr>
+			<tr>
+				<th class="text-left"></th>
+				<td class="text-left mobile">{!! $cv->user->address->address3 !!}</td>
+			</tr>
+			<tr>
+				<th class="text-left"></th>
+				<td class="text-left mobile">{!! $cv->user->address->city !!}</td>
+			</tr>
+			<tr>
+				<th class="text-left"></th>
+				<td class="text-left mobile">{!! $cv->user->address->state !!}</td>
+			</tr>
+			<tr>
+				<th class="text-left"></th>
+				<td class="text-left mobile">{!! $cv->user->address->postcode !!}</td>
+			</tr>
+			<tr>
+				<th class="text-left"></th>
+				<td class="text-left mobile">{!! $cv->user->address->country !!}</td>
+			</tr>
       	</table>
       	@foreach( $cv->jobs as $job )
 			<table class="jobs">

@@ -4,7 +4,7 @@ table.jobs{
 }
 .company{
 	font-weight: bold ;
-	
+	font-size: 1.1em;
 }
 .skillset{
 	font-style: italic;
