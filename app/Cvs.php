@@ -14,7 +14,7 @@ class Cvs extends Model
 		return $this->belongsTo( 'App\User') ;
 	}
 	public function jobs(){
-		$jobs = $this->belongsToMany( 'App\Jobs' ) ;
+		$jobs = $this->belongsToMany( 'App\Jobs' )->withPivot('featured'); ;
 		return $jobs;	
 	}    
 }

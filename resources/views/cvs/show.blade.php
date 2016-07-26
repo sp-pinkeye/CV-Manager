@@ -65,12 +65,13 @@
 			<tr>
 			<td class="text-left skillset">{!! $job->skillSet !!}</td>
 			</tr>
+			@if( $job->featured )
 			<tr>
 			<td class="text-left summary">{!! $job->summary !!}</td>
 			</tr>
 			<tr>
 			<td class="text-left description">{!! $job->description !!}</td>
-			</tr>				
+			</tr>@endif
 			</table>
       	@endforeach
     	</div>

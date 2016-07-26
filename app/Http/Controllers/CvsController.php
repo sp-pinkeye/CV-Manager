@@ -30,9 +30,9 @@ class CvsController extends Controller
 	public function create( Request $request ){
 
 		// Get all the CVs for this user
-								
-		$jobs = Jobs::where( 'users_id', $request->user()->id)->pluck( 'company', 'id') ;
-		return view('cvs.create', ['jobs'=>$jobs ] ) ;
+
+        $jobs = Jobs::where( 'users_id', $request->user()->id)->select( 'company', 'id')->get() ;
+        return view('cvs.create', ['jobs'=>$jobs ] ) ;
 	}
 	
 	public function store( Request $request ){
@@ -46,12 +46,24 @@ class CvsController extends Controller
 		$cv = new Cvs;
 		$cv->title = $request->title;
 		$cv->user_id = $request->user_id;
-		$cv->save();
-		// Now selected jobs
-		$cv->jobs()->attach($request->jobs)	;
-      Session::flash('message', 'Successfully created CV!');
+
+        // attach or sync new jobs
+        $sync = array() ;
+
+        foreach( $request->jobIds as $job ){
+            // How do I know if already created and just needs updating
+            if( in_array( $job, $request->featureIds ) ){
+                $sync[$job] = ['featured'=>true ]  ;
+            }else{
+                $sync[$job] = ['featured'=>false ]  ;
+            }
+        }
+        $cv->save();
+        $cv->jobs()->sync($sync, false);
+
+        Session::flash('message', 'Successfully created CV!');
             
-      return redirect('cvs') ;
+        return redirect('cvs') ;
 	}
 	
 	public function show( Request $request, $id ){
@@ -74,22 +86,31 @@ class CvsController extends Controller
 	
 	public function edit(  Request $request, $id ){
 
-      $cv = Cvs::find($id);
-		
+	    $cv = Cvs::find($id);
 		$policy = policy($cv)->show($request->user(), $cv) ;
-      
-      if( !$policy  ){
-	      Session::flash('message', 'Wrong user id contact Administrator!');
-	   	return redirect('/home') ;
-	   }
-		$jobs = Jobs::where( 'users_id', $request->user()->id)->pluck( 'company', 'id') ;
-		$selected = [] ;
-	   foreach( $cv->jobs as $job ){
-	  	 	$selected[] = $job->id ;
-   	}
-	   	
-		
-		return view('cvs.edit', ['cv'=>$cv, 'jobs'=>$jobs, 'selected'=>$selected] );
+
+        if( !$policy  ){
+	        Session::flash('message', 'Wrong user id contact Administrator!');
+	   	    return redirect('/home') ;
+	    }
+
+	    $jobs = Jobs::where( 'users_id', $request->user()->id)->select( 'company', 'id' )->get() ;
+
+        $selected = [] ;
+        $featured = [] ;
+
+	    foreach( $cv->jobs as $job ){
+            $selected[] = $job->id ;
+            if($job->pivot->featured){
+                $featured[] =$job->id  ;
+            }
+        }
+
+        $data = array() ;
+        foreach( $jobs as $job ){
+            $data[] = ['company'=>$job['company'], 'id'=>$job['id'], 'selected'=>in_array( $job['id'], $selected), 'featured'=>in_array( $job['id'], $featured) ] ;
+        }
+	    return view('cvs.edit', ['cv'=>$cv, 'jobs'=>$data] );
 		
 	}
 	
@@ -104,19 +125,27 @@ class CvsController extends Controller
 	
 		$policy = policy($cv)->show($request->user(), $cv) ;
       
-      if( !$policy  ){
-	      Session::flash('message', 'Wrong user id contact Administrator!');
-	   	return redirect('/home') ;
-	   }
+        if( !$policy  ){
+	        Session::flash('message', 'Wrong user id contact Administrator!');
+	   	    return redirect('/home') ;
+	    }
 		$cv->title = $request->title;
-		
-		$cv->save();
 
-		// Now selected jobs
-		$cv->jobs()->attach($request->jobs)	;		
-      Session::flash('message', 'Successfully Updated CV!');
+        // attach or sync new jobs
+        $sync = array() ;
+        foreach( $request->jobIds as $job ){
+            // How do I know if already created and just needs updating
+            if( in_array( $job, $request->featureIds ) ){
+                $sync[$job] = ['featured'=>true ]  ;
+            }else{
+                $sync[$job] = ['featured'=>false ]  ;
+            }
+        }
+        $cv->save();
+        $cv->jobs()->sync($sync, false);
+        Session::flash('message', 'Successfully Updated CV!');
             
-      return redirect('cvs') ;
+        return redirect('cvs') ;
 	}
 	public function destroy( $id ){
 	}

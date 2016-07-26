@@ -20,8 +20,17 @@
     </div>
 
     <div class="form-group">
-        {!! Form::label('jobs', 'Jobs') !!}
-			{!! Form::select('jobs[]', $jobs, null, ['id' => 'jobs', 'multiple' => 'multiple']) !!}
+        <table class="jobSelector">
+            <tr><th colspan="4">{!! Form::label('jobs', 'Jobs') !!}</th></tr>
+            @foreach( $jobs as $job )
+                <tr>
+                    <td>{!! Form::label('jobIds', $job['company']) !!}</td>
+                    <td>{!! Form::checkbox('jobIds[]', $job['id'], false) !!}</td>
+                    <td>{!! Form::label('featureIds', 'Featured') !!}</td>
+                    <td>{!! Form::checkbox('featureIds[]', $job['id'], false) !!}</td>
+                </tr>
+            @endforeach
+        </table>
     </div>
 
     {!! Form::hidden('user_id',  Auth::user()->id , array('class' => 'form-control')) !!}

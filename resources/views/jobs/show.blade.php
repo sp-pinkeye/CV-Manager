@@ -34,10 +34,6 @@
 				<td class="text-left">{{ $job->end }}</td>
       		</tr>
       		<tr>
-				<th class="text-left">User :</th>
-				<td class="text-left">{{ $job->users_id }}</td>
-      		</tr>
-      		<tr>
 				<th class="text-left">Skill Set :</th>
 				<td class="text-left">{{ $skillSet }}</td>
       		</tr>      		

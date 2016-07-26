@@ -54,9 +54,8 @@ class JobsController extends Controller
 		$job->order = $request->order;
 		$job->summary = $request->summary;
 		$job->description = $request->description;
-		// Dates must be filled in and formatted
-		$job->start =  Carbon::parse( $request->start ) ;
-		$job->end =  Carbon::parse( $request->end ) ;
+		$job->start =  $request->start  ;
+		$job->end =   $request->end  ;
 		$job->users_id = $request->user_id;
 
 		$job->save();
@@ -129,9 +128,9 @@ class JobsController extends Controller
 		$job->order = $request->order;
 		$job->summary = $request->summary;
 		$job->description = $request->description;
-		$job->start =  Carbon::parse( $request->start ) ;
-		$job->end =  Carbon::parse( $request->end ) ;
-		$job->save();
+		$job->start =  $request->start ;
+		$job->end =  $request->end  ;
+        $job->save();
 
 		// Skills may need to be unique
 		// and now get the skills

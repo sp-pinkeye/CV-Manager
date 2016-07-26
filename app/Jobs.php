@@ -12,7 +12,8 @@ class Jobs extends Model
         'company', 'summary', 'description', 'start', 'end', 'user_id', 'cvs_id', 'order'
     ];
     
-    //protected $dates = ['created_at', 'updated_at', 'start', 'end'];
+    protected $dates = ['start', 'end'];
+
     public function cvs(){
 		return $this->belongsToMany( 'App\Cvs') ;
     }
@@ -24,25 +25,25 @@ class Jobs extends Model
         return $skills ;
     }
     
-    // Date formats
-    public function setStartAttribute($value){
-    	$start =  Carbon::parse( $value );
-		return $start->format( 'Y-m-d H:i:s');
-    }
-    public function getStartAttribute($value){
-    	$start =  Carbon::parse( $value );
-		return $start->format( 'd-m-Y');
-
-    }
-
-    public function setEndAttribute($value){
-    	$end =  Carbon::parse( $value );
-		return $end->format( 'Y-m-d H:i:s');
-
-    }
-    public function getEndAttribute($value){
-    	$end =  Carbon::parse( $value );
-		return $end->format( 'd-m-Y');
-    }
+//    // Date formats
+//    public function setStartAttribute($value){
+//    	$start =  Carbon::parse( $value );
+//		return $start->format( 'Y-m-d H:i:s');
+//    }
+//    public function getStartAttribute($value){
+//    	$start =  Carbon::parse( $value );
+//		return $start->format( 'd-m-Y');
+//
+//    }
+//
+//    public function setEndAttribute($value){
+//    	$end =  Carbon::parse( $value );
+//		return $end->format( 'Y-m-d H:i:s');
+//
+//    }
+//    public function getEndAttribute($value){
+//    	$end =  Carbon::parse( $value );
+//		return $end->format( 'd-m-Y');
+//    }
 
 }

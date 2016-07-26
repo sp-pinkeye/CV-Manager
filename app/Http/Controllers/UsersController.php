@@ -166,7 +166,7 @@ class UsersController extends Controller
 
             Address::where( 'id',$request->address_id )
             ->update( [
-                    'address1' => $request->address1,
+                'address1' => $request->address1,
                 'address2' => $request->address2,
                 'address3' => $request->address3 ,
                 'city' => $request->city ,
