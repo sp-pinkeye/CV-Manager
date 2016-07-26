@@ -16,6 +16,7 @@ class SkillList extends Model
   	public function user(){
 		return $this->belongsTo( 'App\Users') ;
     }
+
   	public function skill(){
 		return $this->belongsTo( 'App\Skills') ;
     }

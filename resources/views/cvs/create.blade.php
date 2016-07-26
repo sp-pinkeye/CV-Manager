@@ -19,7 +19,12 @@
         {!! Form::text('title', Input::old('title'), array('class' => 'form-control')) !!}
     </div>
 
-    <div class="form-group">
+        <div class="form-group">
+            {!! Form::label('introduction', 'Introduction') !!}
+            {!! Form::textarea('introduction', Input::old('introduction'), array('class' => 'form-control')) !!}
+        </div>
+
+        <div class="form-group">
         <table class="jobSelector">
             <tr><th colspan="4">{!! Form::label('jobs', 'Jobs') !!}</th></tr>
             @foreach( $jobs as $job )

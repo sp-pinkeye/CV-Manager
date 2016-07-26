@@ -45,7 +45,8 @@ class CvsController extends Controller
 		
 		$cv = new Cvs;
 		$cv->title = $request->title;
-		$cv->user_id = $request->user_id;
+        $cv->user_id = $request->user_id;
+        $cv->introduction = $request->introduction;
 
         // attach or sync new jobs
         $sync = array() ;
@@ -69,19 +70,22 @@ class CvsController extends Controller
 	public function show( Request $request, $id ){
 		
 		$cv = Cvs::find($id);
-
  		$policy = policy($cv)->show($request->user(), $cv) ;
       
-      if( !$policy  ){
-	      Session::flash('message', 'Wrong user id contact Administrator!');
-	   	return redirect('/home') ;
-	   }
-		// How can I get helper inside the views or the Model methinks
-		foreach( $cv->jobs as $job ){
+        if( !$policy  ){
+	        Session::flash('message', 'Wrong user id contact Administrator!');
+	   	    return redirect('/home') ;
+	    }
+
+        $jobs = $cv->jobs()
+            ->orderBy('pivot_featured', 'desc')
+            ->get();
+
+        foreach( $jobs as $job ){
 			$job->skillSet = Helpers::formatSkillSet( $job ) ;
 		}
-					
-		return view('cvs.show', ['cv'=>$cv ] );
+        // Order the jobs by featured then start date
+		return view('cvs.show', ['cv'=>$cv, 'jobs'=>$jobs, 'skill_list'=>$cv->user->skill_list ] );
 	}
 	
 	public function edit(  Request $request, $id ){
@@ -94,18 +98,18 @@ class CvsController extends Controller
 	   	    return redirect('/home') ;
 	    }
 
-	    $jobs = Jobs::where( 'users_id', $request->user()->id)->select( 'company', 'id' )->get() ;
+	    $jobs = Jobs::where( 'users_id', $request->user()->id)->select( 'company', 'id' )->orderBy( 'start' )->get() ;
 
+        // Somehow we need this ordered by the featured field and date
         $selected = [] ;
         $featured = [] ;
 
 	    foreach( $cv->jobs as $job ){
             $selected[] = $job->id ;
             if($job->pivot->featured){
-                $featured[] =$job->id  ;
+                $featured[] = $job->id  ;
             }
         }
-
         $data = array() ;
         foreach( $jobs as $job ){
             $data[] = ['company'=>$job['company'], 'id'=>$job['id'], 'selected'=>in_array( $job['id'], $selected), 'featured'=>in_array( $job['id'], $featured) ] ;
@@ -130,6 +134,7 @@ class CvsController extends Controller
 	   	    return redirect('/home') ;
 	    }
 		$cv->title = $request->title;
+        $cv->introduction = $request->introduction;
 
         // attach or sync new jobs
         $sync = array() ;

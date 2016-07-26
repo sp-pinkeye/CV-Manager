@@ -18,15 +18,19 @@
         {!! Form::text('title', null, array('class' => 'form-control')) !!}
     </div>
 
+        <div class="form-group">
+            {!! Form::label('introduction', 'Introduction') !!}
+            {!! Form::textarea('introduction',null, array('class' => 'form-control')) !!}
+        </div>
       <div class="form-group">
           <table class="jobSelector">
               <tr><th colspan="4">{!! Form::label('jobs', 'Jobs') !!}</th></tr>
           @foreach( $jobs as $job )
               <tr>
-                  <td>{!! Form::label('jobIds', $job['company']) !!}</td>
+                  <td>{!! $job['company'] !!}</td>
 
                   <td>{!! Form::checkbox('jobIds[]', $job['id'], $job['selected'] ) !!}</td>
-                  <td>{!! Form::label('featureIds', 'Featured') !!}</td>
+                  <td>Featured</td>
                   <td>{!! Form::checkbox('featureIds[]', $job['id'], $job['featured'] ) !!}</td>
               </tr>
           @endforeach

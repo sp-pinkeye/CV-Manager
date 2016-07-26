@@ -521,5 +521,6 @@ return array(
     'SkillListTableSeeder' => $baseDir . '/database/seeds/SkillListTableSeeder.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
+    'UpdateCvsTable' => $baseDir . '/database/migrations/2016_07_26_190935_update_cvs_table.php',
     'UpdateJobsTable' => $baseDir . '/database/migrations/2016_07_26_102724_update_jobs_table.php',
 );

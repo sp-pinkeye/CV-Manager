@@ -7,7 +7,7 @@ class Cvs extends Model
 {
     //
 	protected $fillable = [
-        'title', 'users_id', 'active'
+        'title', 'users_id', 'active', 'introduction'
     ];
 
 	public function user(){

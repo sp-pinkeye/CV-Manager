@@ -812,6 +812,7 @@ class ComposerStaticInit76a4c2fa0acca76406175798d283e491
         'SkillListTableSeeder' => __DIR__ . '/../..' . '/database/seeds/SkillListTableSeeder.php',
         'TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
+        'UpdateCvsTable' => __DIR__ . '/../..' . '/database/migrations/2016_07_26_190935_update_cvs_table.php',
         'UpdateJobsTable' => __DIR__ . '/../..' . '/database/migrations/2016_07_26_102724_update_jobs_table.php',
     );
 

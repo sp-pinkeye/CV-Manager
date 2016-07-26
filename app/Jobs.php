@@ -25,17 +25,17 @@ class Jobs extends Model
         return $skills ;
     }
     
-//    // Date formats
+    // Date formats
 //    public function setStartAttribute($value){
 //    	$start =  Carbon::parse( $value );
 //		return $start->format( 'Y-m-d H:i:s');
 //    }
 //    public function getStartAttribute($value){
 //    	$start =  Carbon::parse( $value );
-//		return $start->format( 'd-m-Y');
+//		return $start->toFormattedDateString() ;
 //
 //    }
-//
+
 //    public function setEndAttribute($value){
 //    	$end =  Carbon::parse( $value );
 //		return $end->format( 'Y-m-d H:i:s');
@@ -43,7 +43,7 @@ class Jobs extends Model
 //    }
 //    public function getEndAttribute($value){
 //    	$end =  Carbon::parse( $value );
-//		return $end->format( 'd-m-Y');
+//		return $end->toFormattedDateString();
 //    }
 
 }
