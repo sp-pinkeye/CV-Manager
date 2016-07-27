@@ -9,6 +9,8 @@ use App\Jobs;
 use App\Policies\JobsPolicy;
 use App\Cvs;
 use App\Policies\CvsPolicy;
+use App\Education;
+use App\Policies\EducationPolicy;
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -24,8 +26,9 @@ class AuthServiceProvider extends ServiceProvider
         'App\Model' => 'App\Policies\ModelPolicy',
         	User::class => UserPolicy::class,
         	SkillList::class => SkillListPolicy::class,
-       	Jobs::class => JobsPolicy::class,
-        	Cvs::class => CvsPolicy::class
+       	    Jobs::class => JobsPolicy::class,
+        	Cvs::class => CvsPolicy::class,
+            Education::class => EducationPolicy::class
     ];
 
     /**

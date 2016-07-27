@@ -10,9 +10,10 @@
         <!-- Display Validation Errors -->
         @include('common.errors')
 
-	  	<div class="jumbotron text-center">
-      	<h2 class="">{{ $cv->title }}</h2>
-      	<table class="user">
+		<div class="pageTitle"><h2>{{ $cv->title }}</h2></div>
+
+		<div class="personal">
+      		<table class="user">
 				<tr>
 				<th class="">Name :</th>
 				<td class=" name">{!! $cv->user->firstname !!} {!! $cv->user->lastname !!}</td>				
@@ -25,31 +26,26 @@
 				<th class="">Telephone :</th>
 				<td class=" telephone">{!! $cv->user->telephone !!}</td>				
 				</tr>
-			<tr>
+				<tr>
 				<th class="">Mobile :</th>
 				<td class=" mobile">{!! $cv->user->mobile !!}</td>
-			</tr>
-			<tr>
+				</tr>
+				<tr>
 				<th class="">Address :</th>
 
 				<td class=" mobile">
-					{!! $cv->user->address->address1 !!}<br />
-					{!! $cv->user->address->address2 !!}<br />
-					{!! $cv->user->address->address3 !!}<br />
-					{!! $cv->user->address->city !!}<br />
-					{!! $cv->user->address->state !!}<br />
-					{!! $cv->user->address->postcode !!}<br />
-					{!! $cv->user->address->country !!}
+					@include('address.show',['address'=> $cv->user->address] )
 				</td>
-			</tr>
-      	</table>
+				</tr>
+      		</table>
+		</div>
 
 		<div class="introduction">
 			<h2>Introduction</h2>
 			{!! $cv->introduction !!}
 		</div>
 
-			<div class="skillList">
+		<div class="skillList">
 				<h2>Skill List</h2>
 				<table class="skills">
 					<tr>
@@ -66,27 +62,22 @@
 					</tr>
 					@endforeach
 				</table>
-			</div>
+		</div>
 
+		<div class="employment">
 			<h2>Employment History</h2>
+      		@foreach( $jobs as $job )
+			<div class="jobs">
+				<div class="company">{!! $job->company !!} : {!! $job->start->toFormattedDateString() !!} - {!! $job->end->toFormattedDateString() !!}</div>
+				<div class="skillset">{!! $job->skillSet !!}</div>
+				@if( $job->pivot->featured )
+					<div class="summary">{!! $job->summary !!}</div>
+					<div class="description">{!! $job->description !!}</div>
+				@endif
+			</div>
+      		@endforeach
+		</div>
 
-      	@foreach( $jobs as $job )
-			<table class="jobs">
-			<tr>
-			<td class="company">{!! $job->company !!} : {!! $job->start->toFormattedDateString() !!} - {!! $job->end->toFormattedDateString() !!}</td>			</tr>
-			<tr>
-			<td class="skillset">{!! $job->skillSet !!}</td>
-			</tr>
-			@if( $job->pivot->featured )
-			<tr>
-			<td class="summary">{!! $job->summary !!}</td>
-			</tr>
-			<tr>
-			<td class="description">{!! $job->description !!}</td>
-			</tr>@endif
-			</table>
-      	@endforeach
-    	</div>
     </div>
 
 @endsection

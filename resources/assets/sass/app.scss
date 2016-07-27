@@ -1,44 +1,24 @@
 // @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
-h1,h2,h3,h4{
-  text-align: left ;
-}
 
-div.introduction{
+.panel-body{
+  border: 1px solid #aaa;
+  padding: 20px 40px  ;
+}
+.pageTitle{
+  text-align: center ;
+  margin: 20px 0px ;
+}
+.personal, .introduction, .skillList, .employment{
+  border-bottom: 1px solid #ccc ;
+  padding : 0px 0px 20px 0px ;
+}
+.introduction, .employment{
   text-align: justify;
-}
-table.jobs{
-
-  border-bottom : 1px solid #666666 ;
-  margin-bottom: 10px ;
-  width: 750px ;
-
-  tr {
-    width: 100%;
-  }
-  th,td{
-      width: 100% ;
-      text-align: left ;
-  }
-  td.company{
-    font-weight: bold ;
-    font-size: 1.1em;
-  }
-  td.skillset{
-    font-style: italic;
-  }
-  td.summary{
-    font-weight: bold ;
-    font-size: 0.9em ;
-  }
-
-  td.description{
-    text-align: justify ;
-    font-size: 0.9em ;
-  }
 }
 
 table.user{
+  margin: 0 auto ;
   tr{
     width: 100% ;
   }
@@ -48,13 +28,37 @@ table.user{
     padding: 2px 6px ;
   }
   th{
-      font-weight: bold ;
+    font-weight: bold ;
   }
   td{
 
   }
-
 }
+
+
+.jobs{
+
+  border-bottom : 1px solid #ccc ;
+  padding: 20px 0px ;
+  text-align: left ;
+
+  .company{
+    font-weight: bold ;
+    font-size: 1.2em;
+  }
+  .skillset{
+    font-style: italic;
+  }
+  .summary{
+    font-weight: bold ;
+    text-align: justify ;
+  }
+
+  .description{
+    text-align: justify ;
+  }
+}
+
 table.jobSelector{
 
   tr{
@@ -72,11 +76,29 @@ table.jobSelector{
   }
 
 }
+
 table.skills{
 
   width : 750px ;
   th,td{
     text-align: left;
+    padding :4px 6px ;
+  }
+  th{
+    font-weight: bold ;
+  }
+  td{
+    font-weight: normal ;
+  }
+
+}
+
+table.education{
+
+    margin : 0 auto ;
+  th,td{
+    text-align: left;
+    vertical-align: top ;
     padding :4px 6px ;
   }
   th{

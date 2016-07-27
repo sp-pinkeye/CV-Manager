@@ -6,11 +6,14 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AlterAddressTable' => $baseDir . '/database/migrations/2016_07_27_134152_alter_address_table.php',
     'AlterUserAndAddressTables' => $baseDir . '/database/migrations/2016_07_10_204247_alter_user_and_address_tables.php',
     'CreateAddressTable' => $baseDir . '/database/migrations/2016_07_05_105022_create_address_table.php',
     'CreateCvTable' => $baseDir . '/database/migrations/2016_07_05_141131_create_cv_table.php',
+    'CreateEducationTable' => $baseDir . '/database/migrations/2016_07_27_110207_create_education_table.php',
     'CreateJobsCvTable' => $baseDir . '/database/migrations/2016_07_10_141031_create_jobs_cv_table.php',
     'CreateJobsTable' => $baseDir . '/database/migrations/2016_07_05_200725_create_jobs_table.php',
+    'CreateQualificationTable' => $baseDir . '/database/migrations/2016_07_27_110508_create_qualification_table.php',
     'CreateSkillListTable' => $baseDir . '/database/migrations/2016_07_05_194908_create_skill_list_table.php',
     'CreateSkillsTable' => $baseDir . '/database/migrations/2016_07_05_200729_create_skills_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2016_07_05_110900_create_users_table.php',
@@ -87,6 +90,7 @@ return array(
     'Hamcrest\\Util' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Util.php',
     'Hamcrest\\Xml\\HasXPath' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Xml/HasXPath.php',
     'IlluminateQueueClosure' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
+    'NullableUserIdAddressTable' => $baseDir . '/database/migrations/2016_07_27_144551_nullable_user_id_address_table.php',
     'PHPUnit_Exception' => $vendorDir . '/phpunit/phpunit/src/Exception.php',
     'PHPUnit_Extensions_GroupTestSuite' => $vendorDir . '/phpunit/phpunit/src/Extensions/GroupTestSuite.php',
     'PHPUnit_Extensions_PhptTestCase' => $vendorDir . '/phpunit/phpunit/src/Extensions/PhptTestCase.php',

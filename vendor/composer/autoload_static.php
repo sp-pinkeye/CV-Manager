@@ -297,11 +297,14 @@ class ComposerStaticInit76a4c2fa0acca76406175798d283e491
     );
 
     public static $classMap = array (
+        'AlterAddressTable' => __DIR__ . '/../..' . '/database/migrations/2016_07_27_134152_alter_address_table.php',
         'AlterUserAndAddressTables' => __DIR__ . '/../..' . '/database/migrations/2016_07_10_204247_alter_user_and_address_tables.php',
         'CreateAddressTable' => __DIR__ . '/../..' . '/database/migrations/2016_07_05_105022_create_address_table.php',
         'CreateCvTable' => __DIR__ . '/../..' . '/database/migrations/2016_07_05_141131_create_cv_table.php',
+        'CreateEducationTable' => __DIR__ . '/../..' . '/database/migrations/2016_07_27_110207_create_education_table.php',
         'CreateJobsCvTable' => __DIR__ . '/../..' . '/database/migrations/2016_07_10_141031_create_jobs_cv_table.php',
         'CreateJobsTable' => __DIR__ . '/../..' . '/database/migrations/2016_07_05_200725_create_jobs_table.php',
+        'CreateQualificationTable' => __DIR__ . '/../..' . '/database/migrations/2016_07_27_110508_create_qualification_table.php',
         'CreateSkillListTable' => __DIR__ . '/../..' . '/database/migrations/2016_07_05_194908_create_skill_list_table.php',
         'CreateSkillsTable' => __DIR__ . '/../..' . '/database/migrations/2016_07_05_200729_create_skills_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2016_07_05_110900_create_users_table.php',
@@ -378,6 +381,7 @@ class ComposerStaticInit76a4c2fa0acca76406175798d283e491
         'Hamcrest\\Util' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Util.php',
         'Hamcrest\\Xml\\HasXPath' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Xml/HasXPath.php',
         'IlluminateQueueClosure' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
+        'NullableUserIdAddressTable' => __DIR__ . '/../..' . '/database/migrations/2016_07_27_144551_nullable_user_id_address_table.php',
         'PHPUnit_Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
         'PHPUnit_Extensions_GroupTestSuite' => __DIR__ . '/..' . '/phpunit/phpunit/src/Extensions/GroupTestSuite.php',
         'PHPUnit_Extensions_PhptTestCase' => __DIR__ . '/..' . '/phpunit/phpunit/src/Extensions/PhptTestCase.php',

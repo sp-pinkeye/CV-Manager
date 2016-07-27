@@ -48,10 +48,7 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/home') }}">Home</a></li>
-
-
-
-							@if (Auth::check())
+					@if (Auth::check())
                      <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 Skill List<span class="caret"></span>
@@ -70,6 +67,15 @@
                                 <li><a href="{{ url('/jobs/create') }}">Create Job</a></li>
                             </ul>
                       </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                Education<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/education') }}">Show All</a></li>
+                                <li><a href="{{ url('/education/create') }}">Create Education</a></li>
+                            </ul>
+                        </li>
 
                      <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -111,7 +117,9 @@
     </div>
 
  @endif
-    @yield('content')
+    <div class="container">
+        @yield('content')
+    </div>
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>

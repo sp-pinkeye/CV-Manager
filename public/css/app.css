@@ -1,40 +1,43 @@
-h1, h2, h3, h4 {
-  text-align: left; }
+.panel-body {
+  border: 1px solid #aaa;
+  padding: 20px 40px; }
 
-div.introduction {
+.pageTitle {
+  text-align: center;
+  margin: 20px 0px; }
+
+.personal, .introduction, .skillList, .employment {
+  border-bottom: 1px solid #ccc;
+  padding: 0px 0px 20px 0px; }
+
+.introduction, .employment {
   text-align: justify; }
 
-table.jobs {
-  border-bottom: 1px solid #666666;
-  margin-bottom: 10px;
-  width: 750px; }
-  table.jobs tr {
+table.user {
+  margin: 0 auto; }
+  table.user tr {
     width: 100%; }
-  table.jobs th, table.jobs td {
-    width: 100%;
-    text-align: left; }
-  table.jobs td.company {
+  table.user th, table.user td {
+    vertical-align: top;
+    text-align: left;
+    padding: 2px 6px; }
+  table.user th {
+    font-weight: bold; }
+
+.jobs {
+  border-bottom: 1px solid #ccc;
+  padding: 20px 0px;
+  text-align: left; }
+  .jobs .company {
     font-weight: bold;
-    font-size: 1.1em; }
-  table.jobs td.skillset {
+    font-size: 1.2em; }
+  .jobs .skillset {
     font-style: italic; }
-  table.jobs td.summary {
+  .jobs .summary {
     font-weight: bold;
-    font-size: 0.9em; }
-  table.jobs td.description {
-    text-align: justify;
-    font-size: 0.9em; }
-
-table.user tr {
-  width: 100%; }
-
-table.user th, table.user td {
-  vertical-align: top;
-  text-align: left;
-  padding: 2px 6px; }
-
-table.user th {
-  font-weight: bold; }
+    text-align: justify; }
+  .jobs .description {
+    text-align: justify; }
 
 table.jobSelector tr {
   width: 100%; }
@@ -57,6 +60,17 @@ table.skills {
   table.skills th {
     font-weight: bold; }
   table.skills td {
+    font-weight: normal; }
+
+table.education {
+  margin: 0 auto; }
+  table.education th, table.education td {
+    text-align: left;
+    vertical-align: top;
+    padding: 4px 6px; }
+  table.education th {
+    font-weight: bold; }
+  table.education td {
     font-weight: normal; }
 
 /*# sourceMappingURL=app.css.map */

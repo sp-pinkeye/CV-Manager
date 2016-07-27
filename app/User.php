@@ -27,9 +27,15 @@ class User extends Authenticatable
    public function address(){
 		return $this->hasOne( 'App\Address') ;
 	}
-   public function cvs(){
-		return $this->hasMany( 'App\Cvs') ;
-	}
+    public function cvs(){
+        return $this->hasMany( 'App\Cvs') ;
+    }
+    public function education(){
+        return $this->hasMany( 'App\Education') ;
+    }
+    public function qualifications(){
+        return $this->hasMany( 'App\Qulification') ;
+    }
    public function skill_list(){
 		return $this->hasMany( 'App\SkillList') ;
 	}

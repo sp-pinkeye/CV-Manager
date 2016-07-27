@@ -7,7 +7,6 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 use App\User ;
 
 use App\Cvs ;
-use App\Policies\CvsPolicy ;
 
 class CvsPolicy
 {
