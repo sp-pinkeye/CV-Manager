@@ -66,10 +66,10 @@
 
 		<div class="employment">
 			<h2>Employment History</h2>
-      		@foreach( $jobs as $job )
+      		@foreach( $cv->jobs as $job )
 			<div class="jobs">
 				<div class="company">{!! $job->company !!} : {!! $job->start->toFormattedDateString() !!} - {!! $job->end->toFormattedDateString() !!}</div>
-				<div class="skillset">{!! $job->skillSet !!}</div>
+				<div class="skillset">{!! Helpers::formatSkillSet( $job ) !!}</div>
 				@if( $job->pivot->featured )
 					<div class="summary">{!! $job->summary !!}</div>
 					<div class="description">{!! $job->description !!}</div>

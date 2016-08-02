@@ -26,11 +26,7 @@ class JobsController extends Controller
 	public function index(){
 	 
 	 	$jobs = Jobs::orderBy('order', 'asc')->get();
-	 
-	 	foreach( $jobs as $job ){
-	 		$job->printSkill = Helpers::formatSkillSet( $job ) ;	
-	 	}
-      
+
 	 	return view('jobs.index', ['jobs' => $jobs]);    
 	}
 
@@ -105,9 +101,7 @@ class JobsController extends Controller
 	      Session::flash('message', 'Wrong user id contact Administrator!');
 	   	return redirect('/home') ;
 	   }
-		$printSkill = Helpers::formatSkillSet( $job ) ;
-			
-      return view('jobs.show', ['job'=>$job, 'skillSet'=> $printSkill ] );
+        return view('jobs.show', ['job'=>$job ] );
 	}
 
     /**

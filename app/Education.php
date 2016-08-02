@@ -14,13 +14,14 @@ class Education extends Model
 
     protected $dates = ['start', 'end'];
 
+    protected $with = ['address', 'qualifications'] ;
+
     public function user(){
         return $this->belongsTo( 'App\User') ;
     }
     public function address(){
         return $this->hasOne( 'App\Address') ;
     }
-
     //
     public function qualifications()
     {

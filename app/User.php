@@ -23,8 +23,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    
-   public function address(){
+
+    protected $with = ['address'];
+
+    public function address(){
 		return $this->hasOne( 'App\Address') ;
 	}
     public function cvs(){
@@ -34,7 +36,7 @@ class User extends Authenticatable
         return $this->hasMany( 'App\Education') ;
     }
     public function qualifications(){
-        return $this->hasMany( 'App\Qulification') ;
+        return $this->hasMany( 'App\Qualification') ;
     }
    public function skill_list(){
 		return $this->hasMany( 'App\SkillList') ;

@@ -100,16 +100,8 @@ class CvsController extends Controller
 	        Session::flash('message', 'Wrong user id contact Administrator!');
 	   	    return redirect('/home') ;
 	    }
-
-        $jobs = $cv->jobs()
-            ->orderBy('pivot_featured', 'desc')
-            ->get();
-
-        foreach( $jobs as $job ){
-			$job->skillSet = Helpers::formatSkillSet( $job ) ;
-		}
         // Order the jobs by featured then start date
-		return view('cvs.show', ['cv'=>$cv, 'jobs'=>$jobs, 'skill_list'=>$cv->user->skill_list ] );
+		return view('cvs.show', ['cv'=>$cv, 'skill_list'=>$cv->user->skill_list ] );
 	}
 
     /**

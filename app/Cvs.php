@@ -10,11 +10,13 @@ class Cvs extends Model
         'title', 'users_id', 'active', 'introduction'
     ];
 
+    protected $with = ['jobs'];
+
 	public function user(){
 		return $this->belongsTo( 'App\User') ;
 	}
 	public function jobs(){
-		$jobs = $this->belongsToMany( 'App\Jobs' )->withPivot('featured'); ;
-		return $jobs;	
+		$jobs = $this->belongsToMany( 'App\Jobs' )->withPivot('featured')->orderBy('featured', 'desc'); ;
+		return $jobs;
 	}    
 }

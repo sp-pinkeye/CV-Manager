@@ -7,7 +7,6 @@ use App\SkillList ;
 
 class Helpers{
 
-
 	static function formatSkillSet( $job ){
 
 		// Get the Skill Set list

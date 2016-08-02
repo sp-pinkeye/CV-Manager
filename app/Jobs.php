@@ -11,8 +11,9 @@ class Jobs extends Model
       protected $fillable = [
         'company', 'summary', 'description', 'start', 'end', 'user_id', 'cvs_id', 'order'
     ];
-    
+
     protected $dates = ['start', 'end'];
+    protected $with = ['skills'];
 
     public function cvs(){
 		return $this->belongsToMany( 'App\Cvs') ;
@@ -20,11 +21,10 @@ class Jobs extends Model
     	
     public function skills()
     {
-    		$skills = $this->hasMany('App\Skills') ;
-    		
+   		$skills = $this->hasMany('App\Skills') ;
         return $skills ;
     }
-    
+
     // Date formats
 //    public function setStartAttribute($value){
 //    	$start =  Carbon::parse( $value );

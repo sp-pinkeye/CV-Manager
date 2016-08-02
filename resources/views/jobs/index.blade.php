@@ -32,25 +32,25 @@
         </tr>
     </thead>
     <tbody>
-    @foreach($jobs as $key => $value)
+    @foreach($jobs as $key => $job)
         <tr>
-            <td>{{ $value->id }}</td>
-            <td>{{ $value->company }}</td>
-            <td>{{ $value->order }}</td>
-            <td>{{ $value->printSkill }}</td>
-            <td>{{ $value->summary }}</td>
-            <td>{{ $value->description }}</td>
-            <td>{{ $value->start }}</td>
-            <td>{{ $value->end }}</td>
-            <td>{{ $value->users_id }}</td>
+            <td>{{ $job->id }}</td>
+            <td>{{ $job->company }}</td>
+            <td>{{ $job->order }}</td>
+            <td>{!! Helpers::formatSkillSet( $job ) !!}</td>
+            <td>{{ $job->summary }}</td>
+            <td>{{ $job->description }}</td>
+            <td>{{ $job->start }}</td>
+            <td>{{ $job->end }}</td>
+            <td>{{ $job->users_id }}</td>
 
             <!-- we will also add show, edit, and delete buttons -->
             <td>
                 <!-- show the nerd (uses the show method found at GET /jobs/{id} -->
-                <a class="btn btn-small btn-success" href="{{ URL::to('jobs/' . $value->id) }}">Show this Job</a>
+                <a class="btn btn-small btn-success" href="{{ URL::to('jobs/' . $job->id) }}">Show this Job</a>
 
                 <!-- edit this nerd (uses the edit method found at GET /jobs/{id}/edit -->
-                <a class="btn btn-small btn-info" href="{{ URL::to('jobs/' . $value->id . '/edit') }}">Edit this Job</a>
+                <a class="btn btn-small btn-info" href="{{ URL::to('jobs/' . $job->id . '/edit') }}">Edit this Job</a>
 
             </td>
         </tr>

@@ -35,7 +35,7 @@
       		</tr>
       		<tr>
 				<th class="text-left">Skill Set :</th>
-				<td class="text-left">{{ $skillSet }}</td>
+				<td class="text-left">{!! Helpers::formatSkillSet( $job ) !!}</td>
       		</tr>      		
       	</table>           	
     	</div>
