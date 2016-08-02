@@ -31,6 +31,8 @@
         <!-- Here are the address fields -->
         @include('address.create' )
 
+        @include('qualification.create' )
+
         {!! Form::hidden('user_id',  Auth::user()->id , array('class' => 'form-control')) !!}
 
         {!! Form::submit('Create the Establishment!', array('class' => 'btn btn-primary')) !!}

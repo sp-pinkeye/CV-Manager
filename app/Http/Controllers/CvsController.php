@@ -20,13 +20,25 @@ use Session;
 class CvsController extends Controller
 {
 
+    /**
+     * index    -   lists all current CV's
+     *
+     * @return View
+     */
+
 	public function index(){
 	 
 	 	$cvs = Cvs::all();
 	 
 	 	return view('cvs.index', ['cvs' => $cvs]);    
 	}
-	
+
+    /**
+     * create - form to create a new CV
+     *
+     * @param Request $request
+     * @return View
+     */
 	public function create( Request $request ){
 
 		// Get all the CVs for this user
@@ -34,7 +46,13 @@ class CvsController extends Controller
         $jobs = Jobs::where( 'users_id', $request->user()->id)->select( 'company', 'id')->get() ;
         return view('cvs.create', ['jobs'=>$jobs ] ) ;
 	}
-	
+
+    /**
+     * store - save a new CV .Called form the create form
+     *
+     * @param Request $request
+     * @return redirect to the CV index view
+     */
 	public function store( Request $request ){
 		
 		$this->validate($request, [
@@ -66,10 +84,16 @@ class CvsController extends Controller
             
         return redirect('cvs') ;
 	}
-	
-	public function show( Request $request, $id ){
+
+    /**
+     * show - shows a single CV as defined by the $id param
+     *
+     * @param Request $request
+     * @param $id
+     * @return View
+     */
+	public function show( Request $request, Cvs $cv ){
 		
-		$cv = Cvs::find($id);
  		$policy = policy($cv)->show($request->user(), $cv) ;
       
         if( !$policy  ){
@@ -87,10 +111,16 @@ class CvsController extends Controller
         // Order the jobs by featured then start date
 		return view('cvs.show', ['cv'=>$cv, 'jobs'=>$jobs, 'skill_list'=>$cv->user->skill_list ] );
 	}
-	
-	public function edit(  Request $request, $id ){
 
-	    $cv = Cvs::find($id);
+    /**
+     * edit - display the edit form and load CV index %id
+     *
+     * @param Request $request
+     * @param $id
+     * @return View
+     */
+	public function edit(  Request $request, Cvs $cv ){
+
 		$policy = policy($cv)->show($request->user(), $cv) ;
 
         if( !$policy  ){
@@ -117,16 +147,21 @@ class CvsController extends Controller
 	    return view('cvs.edit', ['cv'=>$cv, 'jobs'=>$data] );
 		
 	}
-	
-	public function update( Request $request, $id ){
+
+    /**
+     * update - called by the edit form to update edited CV defin3ed by $id
+     *
+     * @param Request $request
+     * @param $id
+     * @return Redirector
+     */
+	public function update( Request $request, Cvs $cv ){
 		
 		$this->validate($request, [
 		     'title' => 'required|max:255',
 		   
 		]);
-		
-		$cv = Cvs::find($id);
-	
+
 		$policy = policy($cv)->show($request->user(), $cv) ;
       
         if( !$policy  ){
@@ -152,7 +187,12 @@ class CvsController extends Controller
             
         return redirect('cvs') ;
 	}
-	public function destroy( $id ){
+
+    /**
+     * destroy - remove CV ( as yet not implemented )
+     * @param $id
+     */
+	public function destroy( Cvs $cv ){
 	}
 
 }

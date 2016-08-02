@@ -11,16 +11,32 @@ use Session;
 
 class SkillListController extends Controller
 {
+    /**
+     * List all SkillList entries
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
 	public function index(){
 	 	 	$skill_list = SkillList::all();
 
 	 	return view('skill_list.index', ['skill_list' => $skill_list]);    
 	}
-	
+
+    /**
+     * Display create form for SkillList entry
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
 	public function create(){
 		return view('skill_list.create' ) ;
 	}
-	
+
+    /**
+     * Save newly created SkillList entry
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
 	public function store( Request $request ){
 		
 		$this->validate($request, [
@@ -38,11 +54,16 @@ class SkillListController extends Controller
             
       return redirect('skill_list') ;
 	}
-	
-	public function show( Request $request ,$id ){
 
-      $skill_list = SkillList::find($id);
-        
+    /**
+     * Display single SkillList entry index $id
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
+	public function show( Request $request ,SkillList $skill_list ){
+
 	   $policy = policy($skill_list)->show($request->user(), $skill_list) ;
       
       if( !$policy  ){
@@ -52,10 +73,16 @@ class SkillListController extends Controller
         // show the view and pass the nerd to it
         return view('skill_list.show', ['skill_list'=>$skill_list] );
 	}
-	
-	public function edit( Request $request ,$id ){
 
-      $skill_list = SkillList::find($id);
+    /**
+     * Display edit form for SkillList entry index $id
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
+	public function edit( Request $request ,SkillList $skill_list ){
+
 	   $policy = policy($skill_list)->edit($request->user(), $skill_list) ;
       
       if( !$policy  ){
@@ -67,13 +94,19 @@ class SkillListController extends Controller
         return view('skill_list.edit', ['skill_list'=>$skill_list] );
 		
 	}
-	
-	public function update( Request $request ,$id ){
+
+    /**
+     * Save updated SkillList entry index $id
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+	public function update( Request $request ,SkillList $skill_list ){
 		$this->validate($request, [
 		     'name' => 'required|max:255'
 		]);
 		
-		$skill_list = SkillList::find($id);
 	   $policy = policy($skill_list)->update($request->user(), $skill_list) ;
       
       if( !$policy  ){
@@ -91,7 +124,13 @@ class SkillListController extends Controller
             
       return redirect('skill_list') ;
 	}
-	public function destroy( $id ){
+
+    /**
+     * destroy - NOT IMPLEMENTED
+     *
+     * @param $id
+     */
+	public function destroy( SkillList $skill_list ){
 	}
 
 }

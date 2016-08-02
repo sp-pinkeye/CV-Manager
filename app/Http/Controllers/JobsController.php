@@ -17,6 +17,11 @@ use Session;
 
 class JobsController extends Controller
 {
+    /**
+     * index - list all current jobs
+     *
+     * @return View
+     */
 	 
 	public function index(){
 	 
@@ -28,7 +33,13 @@ class JobsController extends Controller
       
 	 	return view('jobs.index', ['jobs' => $jobs]);    
 	}
-	
+
+    /**
+     * Display the create form for Jobs
+     *
+     * @param Request $request
+     * @return View
+     */
 	public function create(Request $request){
 
 		$cvs = Cvs::where( 'user_id',1 )->pluck('title', 'id') ;
@@ -37,7 +48,13 @@ class JobsController extends Controller
 		
 		return view('jobs.create' , ['skills'=>$skillList ]) ;
 	}
-	
+
+    /**
+     * Save the newly created Jobs data
+     *
+     * @param Request $request
+     * @return Redirector
+     */
 	public function store( Request $request ){
 		$this->validate($request, [
 		     'company' => 'required|max:255',
@@ -72,10 +89,16 @@ class JobsController extends Controller
             
       return redirect('jobs') ;
 	}
-	
-	public function show( Request $request ,$id ){
+
+    /**
+     * Display a single job index $id
+     *
+     * @param Request $request
+     * @param $id
+     * @return View
+     */
+	public function show( Request $request ,Jobs $job ){
 		
-		$job = Jobs::find($id);
 	   $policy = policy($job)->show($request->user(), $job) ;
       
       if( !$policy  ){
@@ -86,10 +109,16 @@ class JobsController extends Controller
 			
       return view('jobs.show', ['job'=>$job, 'skillSet'=> $printSkill ] );
 	}
-	
-	public function edit( Request $request ,$id ){
 
-      $job = Jobs::find($id);
+    /**
+     * Display edit form for Job index $id
+     *
+     * @param Request $request
+     * @param $id
+     * @return View
+     */
+	public function edit( Request $request ,Jobs $job ){
+
 	   $policy = policy($job)->edit($request->user(), $job) ;
       
       if( !$policy  ){
@@ -104,8 +133,15 @@ class JobsController extends Controller
       return view('jobs.edit', ['job'=>$job, 'skills'=>$skillList, 'selected'=>$selected] );
 		
 	}
-	
-	public function update( Request $request, $id ){
+
+    /**
+     * Update details of job index $id
+     *
+     * @param Request $request
+     * @param $id
+     * @return Redirector
+     */
+	public function update( Request $request, Jobs $job ){
 		
 		$this->validate($request, [
 		     'company' => 'required|max:255',
@@ -116,7 +152,6 @@ class JobsController extends Controller
 		    'order' => 'required'
 		]);
 		
-		$job = Jobs::find($id);
 	   $policy = policy($job)->update($request->user(), $job) ;
       
       if( !$policy  ){
@@ -145,7 +180,12 @@ class JobsController extends Controller
             
       return redirect('jobs') ;
 	}
-	public function destroy( $id ){
+
+    /**
+     * destroy - MOT IMPLEMENTED
+     * @param $id
+     */
+	public function destroy( Jobs $job ){
 	}
 
 	

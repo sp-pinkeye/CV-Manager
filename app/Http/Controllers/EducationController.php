@@ -17,18 +17,35 @@ use Session;
 
 class EducationController extends Controller
 {
+    /**
+     * index - list all Educational Establishments
+     *
+     * @return View
+     */
     public function index(){
 
         $educations = Education::all();
 
         return view('education.index', ['education' => $educations ]);
     }
-    //
+
+    /**
+     * create - display the create form for Educational establishment
+     *
+     * @param Request $request
+     * @return View
+     */
     public function create(Request $request){
 
         return view('education.create' ) ;
     }
 
+    /**
+     * store - saves the Education created using the create form
+     *
+     * @param Request $request
+     * @return Redirector
+     */
     public function store( Request $request ){
 
         $this->validate($request, [
@@ -62,9 +79,15 @@ class EducationController extends Controller
         return redirect('education') ;
     }
 
-    public function show( Request $request, $id ){
+    /**
+     * show - show a single Educational establishment index $id
+     *
+     * @param Request $request
+     * @param $id
+     * @return View
+     */
+    public function show( Request $request, Education $education ){
 
-        $education = Education::with( 'address')->find($id);
         $policy = policy($education)->show($request->user(), $education) ;
 
         if( !$policy  ){
@@ -76,9 +99,15 @@ class EducationController extends Controller
         return view('education.show', ['education'=>$education ]);
     }
 
-    public function edit(  Request $request, $id ){
+    /**
+     * edit - show the edit form for Educational establishment index $id
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
+    public function edit(  Request $request, Education $education ){
 
-        $education = Education::with( 'address')->find($id);
         $policy = policy($education)->show($request->user(), $education) ;
 
         if( !$policy  ){
@@ -89,7 +118,14 @@ class EducationController extends Controller
 
     }
 
-    public function update( Request $request, $id ){
+    /**
+     * update - save updated details of Educational establishment index $id
+     *
+     * @param Request $request
+     * @param $id
+     * @return Redirector
+     */
+    public function update( Request $request, Education $education ){
 
         $this->validate($request, [
             'establishment' => 'required|max:255',
@@ -97,7 +133,6 @@ class EducationController extends Controller
             'end' => 'date|required'
 
         ]);
-        $education = Education::with( 'address')->find($id);
         $policy = policy($education)->show($request->user(), $education) ;
 
         if( !$policy  ){
@@ -116,7 +151,12 @@ class EducationController extends Controller
 
         return redirect('education') ;
     }
-    public function destroy( $id ){
+
+    /**
+     * destroy - NOT IMPLEMENTED
+     * @param $id
+     */
+    public function destroy( Education $education ){
     }
 
 }

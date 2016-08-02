@@ -18,10 +18,10 @@ class UsersController extends Controller
 
  	/**
      * List of all users.
-     *	NOTE : Only ADMIN user should acces this
+     *	NOTE : Only ADMIN user should access this
      *
      * 
-     * @return View of all users
+     * @return View
      */	
 	public function index(){
 	 
@@ -85,11 +85,9 @@ class UsersController extends Controller
      * 
      * @return View of Show User details
      */	
-	public function show( Request $request ,$id ){
-		
-		$user = User::with('address')->find($id);
-      $policy = policy($user)->show($request->user(), $id) ;
-      
+	public function show( Request $request ,User $user ){
+      $policy = policy($user)->show($request->user(), $user->id) ;
+
       if( !$policy  ){
 	      Session::flash('message', 'Wrong user id contact Administrator!');
 	   	return redirect('/home') ;
@@ -108,9 +106,9 @@ class UsersController extends Controller
      * 
      * @return View of Edit User Form
      */	
-	public function edit( Request $request ,$id ){
-		$user = User::with('address')->find($id);
-      	$policy = policy($user)->edit($request->user(), $id) ;
+	public function edit( Request $request ,User $user ){
+
+		$policy = policy($user)->edit($request->user(), $user->id) ;
       
      	if( !$policy  ){
 			Session::flash('message', 'Wrong user id contact Administrator!');
@@ -130,11 +128,10 @@ class UsersController extends Controller
      * @return View of Home Page
      */	
 
-	public function update( Request $request, $id ){
+	public function update( Request $request, User $user ){
 
 		
-		$user = User::find($id);
-  	   $policy = policy($user)->update($request->user(), $id) ;
+  	   $policy = policy($user)->update($request->user(), $user->id) ;
       
       if( !$policy  ){
 	      Session::flash('message', 'Wrong user id contact Administrator!');
@@ -197,7 +194,7 @@ class UsersController extends Controller
             
       return redirect('home') ;
 	}
-	public function destroy( $id ){
+	public function destroy( User $user ){
 	}
 
 }
