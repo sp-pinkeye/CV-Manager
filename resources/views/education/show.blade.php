@@ -16,8 +16,9 @@
             <table class="education">
                 <tr><th class="text-left"> From :</th><td class="text-left"> {{ $education->start->toFormattedDateString() }}</td></tr>
                 <tr><th class="text-left"> To :</th><td class="text-left"> {{ $education->end->toFormattedDateString() }}</td></tr>
+                @if( $education->address )
                 <tr><th class="text-left"> Address :</th><td class="text-left"> @include('address.show',['address'=>$education->address] )</td></tr>
-
+                @endif
             </table>
         </div>
     </div>

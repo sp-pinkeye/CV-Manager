@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <!-- Bootstrap Boilerplate... -->
+    <!-- Create Education... -->
 
     <div class="panel-body">
 
@@ -31,6 +31,10 @@
         <!-- Here are the address fields -->
         @include('address.create' )
 
+        <div class="form-group">
+            <a href="javascript:void(0);" id="add-qualification">Add another Qualification</a>
+        </div>
+
         @include('qualification.create' )
 
         {!! Form::hidden('user_id',  Auth::user()->id , array('class' => 'form-control')) !!}
@@ -39,5 +43,12 @@
 
         {!! Form::close() !!}
     </div>
+
+        @section('postJquery')
+            @parent
+            $('#add-qualification').on('click',function(){
+            jQuery(".qualification").clone().insertAfter("div.qualification:last");
+        });
+        @endsection
 
 @endsection

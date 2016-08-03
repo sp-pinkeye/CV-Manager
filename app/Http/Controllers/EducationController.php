@@ -94,7 +94,6 @@ class EducationController extends Controller
             Session::flash('message', 'Wrong user id contact Administrator!');
             return redirect('/home') ;
         }
-
         // Order the jobs by featured then start date
         return view('education.show', ['education'=>$education ]);
     }
@@ -145,7 +144,12 @@ class EducationController extends Controller
 
         $education->save();
 
-        $education->address()->update( $request->address );
+        // Is there a cleaner way to do this
+        if( $education->address ){
+            $education->address->update( $request->address );
+        }else{
+            $education->address()->create( $request->address );
+        }
 
         Session::flash('message', 'Successfully Updated Education!');
 
