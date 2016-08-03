@@ -1,7 +1,7 @@
 <h3>Address</h3>
 <div class="form-group">
     {!! Form::label('address1', 'Address 1') !!}
-    {!! Form::text('address.address1', Input::old('address1'), array('class' => 'form-control')) !!}
+    {!! Form::text('address1', Input::old('address1'), array('class' => 'form-control')) !!}
 </div>
 <div class="form-group">
     {!! Form::label('address2', 'Address 2') !!}

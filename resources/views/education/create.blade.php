@@ -46,9 +46,18 @@
 
         @section('postJquery')
             @parent
-            $('#add-qualification').on('click',function(){
-            jQuery(".qualification").clone().insertAfter("div.qualification:last");
-        });
+            jQuery(document).ready(function() {
+                var qualificationCount = 1 ;
+                $('#add-qualification').on('click',function(){
+                    var block = jQuery(".qualification_block").clone().insertAfter("div.qualification_block:last");
+                    block.children("h4").text("Qualification"+qualificationCount) ;
+                    block.find(".level").attr("name","qualification["+ qualificationCount + "][level]" );
+                    block.find(".subject").attr("name","qualification["+qualificationCount+"][subject]" );
+                    block.find(".grade").attr("name","qualification["+qualificationCount+"][grade]" );
+                    qualificationCount++ ;
+                });
+            });
+
         @endsection
 
 @endsection

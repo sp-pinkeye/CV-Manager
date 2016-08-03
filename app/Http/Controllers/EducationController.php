@@ -48,9 +48,17 @@ class EducationController extends Controller
      */
     public function store( Request $request ){
 
+        // Validate all fields
+        // Lets make it necessary for start and end date
+        // and at least one qualification
         $this->validate($request, [
             'establishment' => 'required|max:255',
             'user_id' => 'required',
+            'start' =>'required|date',
+            'end' =>'required|date',
+            'qualification.*.level' => 'required|string',
+            'qualification.*.subject' => 'required|string',
+            'qualification.*.grade' => 'required|string'
 
         ]);
 
@@ -73,6 +81,11 @@ class EducationController extends Controller
             'user_id'=>$request->user_id
             ]
         ) ;
+        // I need to add user ID so loop through and add
+        foreach( $request->qualification as $qualification ){
+            $qualification['user_id'] = $request->user_id ;
+            $education->qualifications()->create( $qualification ) ;
+        }
 
         Session::flash('message', 'Successfully created Education!');
 
