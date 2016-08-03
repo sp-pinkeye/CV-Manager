@@ -6,7 +6,7 @@
                     <th>Subject</th>
                     <th>Grade</th>
                 </tr>
-                @foreach( $qualifications as $qualification )
+                @foreach( $education->qualifications as $qualification )
                 <tr>
                     <td>{{ $qualification->level }}</td>
                     <td>{{ $qualification->subject }}</td>

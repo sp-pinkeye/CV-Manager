@@ -39,42 +39,12 @@
     </div>
 
     <!-- How do we populate this automatically -->
-        {!! Form::hidden('address.id', $user->address->id, array('class' => 'form-control')) !!}
+    @include('address.partial.edit' ) ;
 
-        <div class="form-group">
-        {!! Form::label('address1', 'Address 1') !!}
-        {!! Form::text('address1', $user->address->address1, array('class' => 'form-control')) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('address2', 'Address 2') !!}
-        {!! Form::text('address2', $user->address->address2, array('class' => 'form-control')) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('address3', 'Address 3') !!}
-        {!! Form::text('address3', $user->address->address3, array('class' => 'form-control')) !!}
-    </div>
 
-    <div class="form-group">
-        {!! Form::label('city', 'City') !!}
-        {!! Form::text('city', $user->address->city, array('class' => 'form-control')) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('state', 'State' ) !!}
-        {!! Form::text('state', $user->address->state, array('class' => 'form-control')) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('country', 'Country') !!}
-        {!! Form::text('country', $user->address->country, array('class' => 'form-control')) !!}
-    </div>
+{!! Form::submit('Update the User!', array('class' => 'btn btn-primary')) !!}
 
-    <div class="form-group">
-        {!! Form::label('postcode', 'Poctcode') !!}
-        {!! Form::text('postcode', $user->address->postcode, array('class' => 'form-control')) !!}
-    </div>
-
-    {!! Form::submit('Update the User!', array('class' => 'btn btn-primary')) !!}
-
-	{!! Form::close() !!}
-    </div>
+{!! Form::close() !!}
+</div>
 
 @endsection

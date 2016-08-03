@@ -28,14 +28,37 @@
         </div>
 
         <!-- Here are the address fields -->
-        @include('address.edit' )
+        @include('address.partial.edit' )
+
+        @include('qualification.partial.edit', ['qualifications'=>$education->qualifications] )
+        <div class="form-group">
+            <a href="javascript:void(0);" id="add-qualification">Add another Qualification</a>
+        </div>
+
 
         {!! Form::hidden('user_id',  Auth::user()->id , array('class' => 'form-control')) !!}
-
 
         {!! Form::submit('Update the Educational Establishment!', array('class' => 'btn btn-primary')) !!}
 
         {!! Form::close() !!}
     </div>
+@section('postJquery')
+    @parent
+    jQuery(document).ready(function() {
+
+    var cloneIndex = $(".qualification").length ;
+    $('#add-qualification').on('click',function(){
+    var block = jQuery("#qualification0").clone()
+    .attr("id", "qualification"+cloneIndex)
+    .insertAfter("div.qualification:last");
+
+    block.children("h4").text("Qualification"+(cloneIndex+1)) ;
+    block.find(".level").attr("name","qualification["+ cloneIndex + "][level]" );
+    block.find(".subject").attr("name","qualification["+cloneIndex+"][subject]" );
+    block.find(".grade").attr("name","qualification["+cloneIndex+"][grade]" );
+    });
+    });
+
+@endsection
 
 @endsection

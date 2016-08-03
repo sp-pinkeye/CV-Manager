@@ -1,4 +1,4 @@
-<h3>Address</h3>
+<h3>Address Partial</h3>
 <div class="form-group">
     {!! Form::label('address1', 'Address 1') !!}
     {!! Form::text('address[address1]', null, array('class' => 'form-control')) !!}

@@ -31,11 +31,11 @@
         <!-- Here are the address fields -->
         @include('address.create' )
 
+        @include('qualification.partial.form' )
         <div class="form-group">
             <a href="javascript:void(0);" id="add-qualification">Add another Qualification</a>
         </div>
 
-        @include('qualification.create' )
 
         {!! Form::hidden('user_id',  Auth::user()->id , array('class' => 'form-control')) !!}
 
@@ -49,7 +49,7 @@
             jQuery(document).ready(function() {
                 var qualificationCount = 1 ;
                 $('#add-qualification').on('click',function(){
-                    var block = jQuery(".qualification_block").clone().insertAfter("div.qualification_block:last");
+                    var block = jQuery(".qualification0").clone().insertAfter("div.qualification"+( qualificationCount - 1 ) +":last");
                     block.children("h4").text("Qualification"+qualificationCount) ;
                     block.find(".level").attr("name","qualification["+ qualificationCount + "][level]" );
                     block.find(".subject").attr("name","qualification["+qualificationCount+"][subject]" );

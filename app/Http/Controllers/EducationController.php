@@ -142,9 +142,13 @@ class EducationController extends Controller
         $this->validate($request, [
             'establishment' => 'required|max:255',
             'start' => 'date|required',
-            'end' => 'date|required'
+            'end' => 'date|required',
+            'qualification.*.level' => 'required|string',
+            'qualification.*.subject' => 'required|string',
+            'qualification.*.grade' => 'required|string'
 
         ]);
+
         $policy = policy($education)->show($request->user(), $education) ;
 
         if( !$policy  ){
@@ -164,6 +168,9 @@ class EducationController extends Controller
             $education->address()->create( $request->address );
         }
 
+        // What about user ID's
+        $education->qualifications()->delete() ;
+        $education->qualifications()->saveMany($request->qualification) ;
         Session::flash('message', 'Successfully Updated Education!');
 
         return redirect('education') ;
